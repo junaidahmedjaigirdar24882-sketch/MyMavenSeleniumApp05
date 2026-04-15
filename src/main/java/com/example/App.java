@@ -14,11 +14,6 @@ import java.time.Duration;
 public class App {
     public static void main(String[] args) throws InterruptedException {
 	FirefoxOptions options = new FirefoxOptions();
-
-	options.addArguments("--headless");
-	options.addArguments("--no-sandbox");
-	options.addArguments("--disable-dev-shm-usage");
-
 	WebDriver driver = new FirefoxDriver(options);
         driver.manage().window().setSize(new org.openqa.selenium.Dimension(1920, 1080));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));

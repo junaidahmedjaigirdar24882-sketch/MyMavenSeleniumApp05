@@ -1,12 +1,12 @@
+Firefox 
+
 pipeline {
-    agent any
+    agent any  // Use any available agent
 
     tools {
-        maven 'Maven'
+        maven 'Maven'  // Ensure this matches the name configured in Jenkins
     }
-
     stages {
-
         stage('Checkout') {
             steps {
                 git branch: 'master', url: 'https://github.com/junaidahmedjaigirdar24882-sketch/MyMavenSeleniumApp05.git'
@@ -15,23 +15,12 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package -DskipTests'
+                sh 'mvn clean package'  // Run Maven build
             }
         }
 
-        stage('Run Automation') {
+        stage('Test') {
             steps {
-                sh 'java -jar target/MyMavenSeleniumApp05-1.0-SNAPSHOT.jar'
+                sh 'mvn test'  // Run unit tests
             }
         }
-    }
-
-    post {
-        success {
-            echo 'Build Successful'
-        }
-        failure {
-            echo 'Build Failed'
-        }
-    }
-}
