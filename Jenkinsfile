@@ -6,6 +6,7 @@ pipeline {
     }
 
     stages {
+
         stage('Checkout') {
             steps {
                 git branch: 'main', url: 'https://github.com/junaidahmedjaigirdar24882-sketch/MyMavenSeleniumApp05.git'
@@ -14,7 +15,13 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean package -Dmaven.test.skip=true'
+                sh 'mvn clean package -DskipTests'
+            }
+        }
+
+        stage('Run Automation') {
+            steps {
+                sh 'java -jar target/MyMavenSeleniumApp05-1.0-SNAPSHOT.jar'
             }
         }
     }
