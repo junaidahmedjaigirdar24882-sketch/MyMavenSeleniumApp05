@@ -1,9 +1,10 @@
 pipeline {
-    agent any  // Use any available agent
+    agent any
 
     tools {
-        maven 'Maven'  // Ensure this matches the name configured in Jenkins
+        maven 'Maven'
     }
+
     stages {
         stage('Checkout') {
             steps {
@@ -11,42 +12,16 @@ pipeline {
             }
         }
 
-        stage('Build') {
+        stage('Build & Test') {
             steps {
-                sh 'mvn clean package'  // Run Maven build
+                sh 'mvn clean package'
             }
         }
 
-        stage('Test') {
+        stage('Run Application') {
             steps {
-                sh 'mvn test'  // Run unit tests
+                sh 'java -jar target/MyMavenSeleniumApp05-1.0-SNAPSHOT.jar'
             }
-        }
-        
-stage('Check Target Folder') {
-    steps {
-        sh 'ls -l target'
-    }
-}
-        
-        
-       
-       stage('Run Application') {
-    steps {
-        sh 'java -jar target/original-MyMavenSeleniumApp05-1.0-SNAPSHOT.jar'
-    }
-}
-        
-
-        
-    }
-
-    post {
-        success {
-            echo 'Build and deployment successful!'
-        }
-        failure {
-            echo 'Build failed!'
         }
     }
 }
