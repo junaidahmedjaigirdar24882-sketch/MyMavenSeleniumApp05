@@ -20,7 +20,7 @@ pipeline {
 
         stage('Run Application') {
             steps {
-                sh 'java -jar target/MyMavenSeleniumApp05-1.0-SNAPSHOT.jar'
+                sh 'xvfb-run -a java -jar target/MyMavenSeleniumApp05-1.0-SNAPSHOT.jar'
             }
         }
     }

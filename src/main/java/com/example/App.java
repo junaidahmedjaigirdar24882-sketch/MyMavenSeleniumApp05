@@ -14,7 +14,17 @@ import java.time.Duration;
 public class App {
     public static void main(String[] args) throws InterruptedException {
 	FirefoxOptions options = new FirefoxOptions();
+
+	// VERY IMPORTANT
+	options.setBinary("/usr/bin/firefox");
+
+	// headless
 	options.addArguments("--headless");
+
+	// extra stability flags (important in Jenkins)
+	options.addArguments("--no-sandbox");
+	options.addArguments("--disable-dev-shm-usage");
+
 	WebDriver driver = new FirefoxDriver(options);
         driver.manage().window().setSize(new org.openqa.selenium.Dimension(1920, 1080));
         WebDriverWait wait = new WebDriverWait(driver, Duration.ofSeconds(15));
