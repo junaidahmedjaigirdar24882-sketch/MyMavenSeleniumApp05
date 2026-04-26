@@ -13,25 +13,30 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh 'mvn clean install'  // Run Maven build
+                sh 'mvn clean package'  // Run Maven build
             }
         }
 
         stage('Test') {
             steps {
-                sh 'mvn clean install'  // Run unit tests
+                sh 'mvn test'  // Run unit tests
             }
         }
-
+        
+stage('Check Target Folder') {
+    steps {
+        sh 'ls -l target'
+    }
+}
         
         
        
-        stage('Run Application') {
-            steps {
-                // Start the JAR application
-                sh 'mvn exec:java -Dexec.mainClass="com.example.App"'
-            }
-        }
+       stage('Run Application') {
+    steps {
+        sh 'java -jar target/MyMavenSeleniumApp05-1.0-SNAPSHOT.jar'
+    }
+}
+        
 
         
     }
